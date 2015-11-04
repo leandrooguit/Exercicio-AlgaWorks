@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">Novo turma</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="turma" value="#{cadastroTurmaBean.turma}" />
+		</f:metadata>
+    
+    	<h1>Novo turma</h1>
+    	
+    	<h:form id="frmCadastro">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroTurmaBean.salvar}" update="frmCadastro"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/turma/PesquisaTurma.xhtml" />
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+			<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
+				<p:outputLabel value="Código" for="codigo" rendered="#{cadastroTurmaBean.isTeste()}" />
+			    <p:outputLabel id="codigo" value="#{cadastroTurmaBean.turma.codigo}" rendered="#{cadastroTurmaBean.isTeste()}" />
+			
+				<p:outputLabel value="Descrição" for="descricao"/>
+			    <p:inputText id="descricao" size="50" maxlength="50" value="#{cadastroTurmaBean.turma.descricao}" />
+			</p:panelGrid>
+			
+    	</h:form>
+    </ui:define>
+</ui:composition>

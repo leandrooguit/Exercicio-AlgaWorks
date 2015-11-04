@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">Matrícula de aluno</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="aluno" value="#{cadastroAlunoBean.aluno}" />
+		</f:metadata>
+		
+    	<h1>Matrícula de aluno</h1>
+    	
+    	<h:form id="frmCadastro">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroAlunoBean.salvar}" update="frmCadastro"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/aluno/PesquisaAluno.xhtml" />
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+	    	
+	    		<p:outputLabel value="Código" for="codigo" rendered="#{cadastroAlunoBean.isTeste()}"  />
+			    <p:outputLabel id="codigo" value="#{cadastroAlunoBean.aluno.codigo}" rendered="#{cadastroAlunoBean.isTeste()}" />
+	    	
+	    		<p:outputLabel value="Nome do aluno" for="nomeAluno"/>
+	    		<p:inputText id="nomeAluno" size="20" maxlength="80" value="#{cadastroAlunoBean.aluno.nome}"/>
+	    	
+	    		<p:outputLabel value="forma de pagamento" for="formaPagamento"/>
+	    		<p:inputText id="formaPagamento" size="20" maxlength="80" value="#{cadastroAlunoBean.observacao}"/>
+	    		
+	    		<p:outputLabel value="Turma" for="turma"/>
+	    		<p:selectManyMenu id="turma" value="#{cadastroAlunoBean.turmaSelecionadas}" converter="turmaConverter">
+	    			<f:selectItem itemLabel="Selecione a turma" />
+	    			<f:selectItems value="#{cadastroAlunoBean.turmas}" var="turma" 
+						itemLabel="#{turma.descricao}" itemValue="#{turma}"/>
+	    		</p:selectManyMenu>
+	    		
+	    	</p:panelGrid>
+	    	
+    	</h:form>
+    </ui:define>
+</ui:composition>
